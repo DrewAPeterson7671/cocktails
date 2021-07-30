@@ -8,52 +8,54 @@ class CocktailsController < ApplicationController
 
   # GET /cocktails/1 or /cocktails/1.json
   def show
+    @user = User.find(params[:user_id])
+    @cocktail = Cocktail.find(params[:id])
+    render :show
   end
 
   # GET /cocktails/new
   def new
-    @cocktail = Cocktail.new
+    @user = User.find(params[:user_id])
+    @cocktail = @user.cocktails.new
+    render :new
   end
 
   # GET /cocktails/1/edit
   def edit
+    @user = User.find(params[:user_id])
+    @cocktail = Cocktail.find(params[:id])
+    render :edit
   end
 
   # POST /cocktails or /cocktails.json
   def create
-    @cocktail = Cocktail.new(cocktail_params)
-
-    respond_to do |format|
-      if @cocktail.save
-        format.html { redirect_to @cocktail, notice: "Cocktail was successfully created." }
-        format.json { render :show, status: :created, location: @cocktail }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cocktail.errors, status: :unprocessable_entity }
-      end
+    @user = User.find(params[:user_id])
+    @cocktail = @user.cocktails.new(cocktail_params)
+    if @cocktail.save
+      redirect_to user_path(@user)
+    else
+      render :new
     end
+  
   end
 
   # PATCH/PUT /cocktails/1 or /cocktails/1.json
   def update
-    respond_to do |format|
-      if @cocktail.update(cocktail_params)
-        format.html { redirect_to @cocktail, notice: "Cocktail was successfully updated." }
-        format.json { render :show, status: :ok, location: @cocktail }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @cocktail.errors, status: :unprocessable_entity }
-      end
+    @cocktail = Cocktail.find(params[:id])
+    if @cocktail.update(cocktail_params)
+      redirect_to user_path(@cocktail.user)
+    else
+      @user = User.find(params[:user_id])
+      render :edit
     end
+
   end
 
   # DELETE /cocktails/1 or /cocktails/1.json
   def destroy
+    @cocktail = Cocktail.find(params[:id])
     @cocktail.destroy
-    respond_to do |format|
-      format.html { redirect_to cocktails_url, notice: "Cocktail was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to user_path(@cocktail.user)
   end
 
   private

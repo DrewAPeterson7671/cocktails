@@ -1,14 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h2>
   <%= @cocktail.name %>
-</p>
+</h2>
 
 <p>
   <strong>Ingredients:</strong>
   <%= @cocktail.ingredients %>
 </p>
 
-<%= link_to 'Edit', edit_cocktail_path(@cocktail) %> |
-<%= link_to 'Back', cocktails_path %>
+<%= link_to 'Edit', edit_user_cocktail_path(@user, @cocktail) %> |
+<%= link_to 'Delete', user_cocktail_path(@user, @cocktail),
+            :data => {:confirm => "Are You Sure?",
+            :method => "delete"} %> |
+<%= link_to 'Back', user_path(@user) %>

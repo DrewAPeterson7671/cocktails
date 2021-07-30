@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :users
-  resources :cocktails
+  root to: 'users#index'
+  resources :users do
+    resources :cocktails
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
