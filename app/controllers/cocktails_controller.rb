@@ -8,28 +8,28 @@ class CocktailsController < ApplicationController
 
   # GET /cocktails/1 or /cocktails/1.json
   def show
-    @user = User.find(params:[:user_id])
-    @cocktail = Cocktail.find(params:[:id])
+    @user = User.find(params[:user_id])
+    @cocktail = Cocktail.find(params[:id])
     render :show
   end
 
   # GET /cocktails/new
   def new
-    @user = User.find(params:[:user_id])
+    @user = User.find(params[:user_id])
     @cocktail = @user.cocktails.new
     render :new
   end
 
   # GET /cocktails/1/edit
   def edit
-    @user = User.find(params:[:user_id])
-    @cocktail = Cocktail.find(params:[:id])
+    @user = User.find(params[:user_id])
+    @cocktail = Cocktail.find(params[:id])
     render :edit
   end
 
   # POST /cocktails or /cocktails.json
   def create
-    @user = User.find(params:[:user_id])
+    @user = User.find(params[:user_id])
     @cocktail = @user.cocktails.new(cocktail_params)
     if @cocktail.save
       redirect_to user_path(@user)
@@ -41,11 +41,11 @@ class CocktailsController < ApplicationController
 
   # PATCH/PUT /cocktails/1 or /cocktails/1.json
   def update
-    @cocktail = Cocktail.find(params:[:id])
+    @cocktail = Cocktail.find(params[:id])
     if @cocktail.update(cocktail_params)
       redirect_to user_path(@cocktail.user)
     else
-      @user = User.find(params:[:user_id])
+      @user = User.find(params[:user_id])
       render :edit
     end
 
@@ -53,7 +53,7 @@ class CocktailsController < ApplicationController
 
   # DELETE /cocktails/1 or /cocktails/1.json
   def destroy
-    @cocktail = Cocktail.find(params:[:id])
+    @cocktail = Cocktail.find(params[:id])
     @cocktail.destroy
     redirect_to user_path(@cocktail.user)
   end

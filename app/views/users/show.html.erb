@@ -13,7 +13,7 @@
 
     <ul>
       <li>
-        <% link_to cocktail.name, user_cocktail_path(@user, cocktail) %>
+        <%= link_to cocktail.name, user_cocktail_path(@user, cocktail) %>
       </li>
     </ul>
 
@@ -22,9 +22,9 @@
   <p>No favorites (yet)</p>
 <% end %>
 
-<%= link_to "Add a favorite", new_user_cocktail_path(@user) %>
+<%= link_to "Add a favorite", new_user_cocktail_path(@user) %> |
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Delete user', user_path(@user),
           :data => {:confirm => "Are you sure?",
-                    :method => "delete"} %>
+                    :method => "delete"} %> |
 <%= link_to 'Back', users_path %>
