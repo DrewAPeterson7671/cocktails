@@ -63,9 +63,27 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
+    with.test_framework :rspec 
+
+    with.library :active_record
+    with.library :active_model
+    with.library :action_controller  
+    with.library :rails  
   end
+end
+
+RSpec.configure do |config| 
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)  
+  end  
+  
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do  
+      example.run  
+    end  
+  end  
 end
